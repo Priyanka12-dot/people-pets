@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* ── Custom theme ── */
+@theme {
+  /* Backgrounds */
+  --color-night: #0f0f12;
+  --color-surface: #18181b;
+  --color-ink: #1c1c21;
+  --color-border: #2d2d35;
+
+  /* Text */
+  --color-body: #e4e4e7;
+  --color-muted: #a1a1aa;
+  --color-bright: #fafafa;
+
+  /* Accents */
+  --color-hope: #10b981;    
+  --color-alert: #ef4444;   
+  --color-resolve: #3b82f6; 
+  --color-signal: #f59e0b;  
+  --color-scan: #8b5cf6;    
+
+  /* ─── FONT FAMILIES ─── */
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* ── Base layer ── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-night text-body font-body antialiased;
+    min-height: 100dvh;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-night; }
+  ::-webkit-scrollbar-thumb { @apply bg-border rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-muted; }
+}
+
+/* ── Components layer ── */
+@layer components {
+  .card {
+    @apply bg-surface border border-border rounded-2xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-display font-semibold
+           text-night bg-hope transition-all duration-200
+           hover:brightness-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-display font-semibold
+           text-body border border-border bg-surface transition-all duration-200
+           hover:border-hope hover:text-hope active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-display font-semibold
+           text-night bg-alert transition-all duration-200
+           hover:brightness-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input {
+    @apply w-full bg-ink border border-border rounded-xl px-4 py-2.5 text-body text-sm
+           placeholder:text-muted outline-none transition-all duration-150
+           focus:border-hope focus:ring-1 focus:ring-hope/30;
+  }
+
+  .label {
+    @apply block text-xs font-display font-semibold text-muted uppercase tracking-widest mb-1.5;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-bright text-2xl sm:text-3xl;
+  }
+
+  .scan-overlay {
+    @apply absolute inset-0 overflow-hidden rounded-2xl pointer-events-none;
+  }
+  .scan-overlay::after {
+    content: '';
+    @apply absolute left-0 right-0 h-0.5 bg-scan/60;
+    animation: scan_line 2s linear infinite;
+  }
+}
